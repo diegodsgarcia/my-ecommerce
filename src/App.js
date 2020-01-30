@@ -5,21 +5,25 @@ import { Home, Cart, Description } from './pages'
 
 import { Navigation } from './components'
 
+import './styles/global.css'
+
 function App() {
   return (
     <Router>
-      <Switch>
-        <Route path="/descricao">
-          <Description />
-        </Route>
-        <Route path="/carrinho">
-          <Cart />
-        </Route>
-        <Route path="/">
-          <Home />
-        </Route>
-      </Switch>
-      <Navigation />
+      <main>
+        <Navigation />
+        <Switch>
+          <Route exact path="/">
+            <Home />
+          </Route>
+          <Route path="/descricao">
+            <Description />
+          </Route>
+          <Route path="/carrinho">
+            <Cart />
+          </Route>
+        </Switch>
+      </main>
     </Router>
   )
 }

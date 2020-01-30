@@ -1,0 +1,11 @@
+.page {
+  max-width: var(--breakpoint-md);
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+@media (min-width: 1000px) {
+  .page {
+    padding: 0;
+  }
+}
