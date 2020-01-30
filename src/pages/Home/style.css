@@ -1,0 +1,38 @@
+.product-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, auto));
+  gap: 20px;
+}
+
+.product-item {
+  position: relative;
+  padding-bottom: 60px;
+}
+
+.product-item figure {
+  height: 300px;
+}
+
+.product-item figure img {
+  width: 100%;
+  height: 100%;
+}
+
+.product-title {
+  margin: 10px 0;
+}
+
+.product-price {
+  font-weight: 700;
+  margin: 10px 0;
+}
+
+.actions {
+  position: absolute;
+  bottom: 0;
+  display: flex;
+}
+
+.actions > * {
+  flex: 1;
+}
