@@ -1,11 +1,15 @@
 .page {
+  overflow-y: auto;
+}
+
+.page-container {
   max-width: var(--breakpoint-md);
   margin: 0 auto;
   padding: 20px;
 }
 
 @media (min-width: 1000px) {
-  .page {
+  .page-container {
     padding: 20px 0;
   }
 }

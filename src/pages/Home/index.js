@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react'
+import { Link } from 'react-router-dom'
 
 import Page from '../../components/Page'
 
@@ -28,7 +29,9 @@ function Home() {
               <div className="product-price">{currency(price)}</div>
             </div>
             <div className="actions">
-              <button className="button">Comprar</button>
+              <Link className="button" to="/carrinho">
+                Comprar
+              </Link>
               <button className="button stroked">Adicionar ao carrinho</button>
             </div>
           </li>
