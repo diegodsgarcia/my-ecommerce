@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from 'react'
+import InputMask from 'react-input-mask'
 
 import './style.css'
 
-function Input({ id, name, value, type, min, max, onChange }) {
+function Input({ id, name, value, type, min, max, onChange, mask }) {
   const [focused, setFocused] = useState(false)
   const [hasValue, setHasValue] = useState(false)
 
@@ -13,7 +14,8 @@ function Input({ id, name, value, type, min, max, onChange }) {
   return (
     <div className={`field ${focused || hasValue ? 'focused' : ''}`}>
       <label className="label">{name}</label>
-      <input
+      <InputMask
+        mask={mask}
         className="input"
         id={id}
         htmlFor={name}

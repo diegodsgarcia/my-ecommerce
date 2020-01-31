@@ -5,8 +5,7 @@ import Cards from 'react-credit-cards'
 import { createTransaction, getAddress } from '../../service/api'
 import { currency } from '../../service/utils'
 
-import Page from '../../components/Page'
-import Input from '../../components/Input'
+import { Page, Input } from '../../components'
 
 import 'react-credit-cards/es/styles-compiled.css'
 import './style.css'
@@ -41,11 +40,17 @@ function Checkout() {
     )
   }
 
-  function onCheckAddress(event) {
+  async function onCheckAddress(event) {
     const cep = event.target.value
+    const pattern = /[0-9]{5}-[0-9]{3}/
     setAddress({ ...address, cep })
-    if (cep.length === 8) {
-      getAddress(cep).then(setAddress)
+
+    if (pattern.test(cep)) {
+      const result = await getAddress(cep)
+
+      if (!result.erro) {
+        setAddress(result)
+      }
     }
   }
 
@@ -64,6 +69,7 @@ function Checkout() {
           <h3>Informações pessoais</h3>
           <div className="checkout-form-group">
             <Input
+              mask="99999-999"
               type="text"
               name="CEP"
               onChange={onCheckAddress}
@@ -85,6 +91,7 @@ function Checkout() {
               }
             />
             <Input
+              mask="9999 9999 9999 9999"
               type="text"
               name="Numero do cartão"
               onChange={event =>
@@ -92,6 +99,7 @@ function Checkout() {
               }
             />
             <Input
+              mask="99/99"
               type="text"
               name="Data de validade do cartão "
               onChange={event =>
@@ -99,6 +107,7 @@ function Checkout() {
               }
             />
             <Input
+              mask="999"
               type="text"
               name="Codigo verificador do cartão"
               onChange={event =>
