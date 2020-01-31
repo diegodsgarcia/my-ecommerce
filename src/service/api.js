@@ -10,8 +10,11 @@ async function getProducts() {
   return data.products
 }
 
-async function getAddress(zipcode) {
-  return await axios.get(`${process.env.REACT_APP_API_CEP}/${zipcode}/json`)
+async function getAddress(cep) {
+  const { data } = await axios.get(
+    `${process.env.REACT_APP_API_CEP}/${cep}/json`
+  )
+  return data
 }
 
 async function createTransaction() {

@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { useSelector } from 'react-redux'
 import Cards from 'react-credit-cards'
 
-import { createTransaction } from '../../service/api'
+import { createTransaction, getAddress } from '../../service/api'
 import { currency } from '../../service/utils'
 
 import Page from '../../components/Page'
@@ -22,6 +22,14 @@ function Checkout() {
     number: '',
   })
 
+  const [address, setAddress] = useState({
+    cep: '',
+    logradouro: '',
+    bairro: '',
+    localidade: '',
+    uf: '',
+  })
+
   if (!products.length) {
     return (
       <Page>
@@ -33,7 +41,15 @@ function Checkout() {
     )
   }
 
-  async function finishCheckout(event) {
+  function onCheckAddress(event) {
+    const cep = event.target.value
+    setAddress({ ...address, cep })
+    if (cep.length === 8) {
+      getAddress(cep).then(setAddress)
+    }
+  }
+
+  async function onFinishCheckout(event) {
     event.preventDefault()
     const result = await createTransaction()
     console.log(result)
@@ -44,13 +60,20 @@ function Checkout() {
       <div className="checkout">
         <h1 className="checkout-title">Finalizar pedido</h1>
 
-        <form className="checkout-form" onSubmit={finishCheckout}>
+        <form className="checkout-form" onSubmit={onFinishCheckout}>
           <h3>Informações pessoais</h3>
           <div className="checkout-form-group">
-            <Input type="text" name="CEP" />
-            <Input type="text" name="Endereço" />
-            <Input type="text" name="Cidade" />
-            <Input type="text" name="Estado" />
+            <Input
+              type="text"
+              name="CEP"
+              onChange={onCheckAddress}
+              value={address.cep}
+            />
+            <Input type="text" name="Endereço" value={address.logradouro} />
+            <Input type="text" name="Cidade" value={address.localidade} />
+            <Input type="text" name="Estado" value={address.uf} />
+            <Input type="text" name="Número" />
+            <Input type="text" name="Complemento" />
           </div>
           <h3>Dados de pagamento</h3>
           <div className="checkout-form-group">

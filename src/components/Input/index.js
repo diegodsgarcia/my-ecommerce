@@ -1,10 +1,15 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 
 import './style.css'
 
-function Input({ id, name, type, min, max, onChange }) {
+function Input({ id, name, value, type, min, max, onChange }) {
   const [focused, setFocused] = useState(false)
   const [hasValue, setHasValue] = useState(false)
+
+  useEffect(() => {
+    value ? setHasValue(true) : setHasValue(false)
+  }, [value])
+
   return (
     <div className={`field ${focused || hasValue ? 'focused' : ''}`}>
       <label className="label">{name}</label>
@@ -15,6 +20,7 @@ function Input({ id, name, type, min, max, onChange }) {
         type={type}
         min={min}
         max={max}
+        value={value}
         onChange={event => {
           if (event.target.value) {
             setHasValue(true)
