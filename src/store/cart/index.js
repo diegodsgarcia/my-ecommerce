@@ -36,6 +36,16 @@ const reducer = (state = INITIAL_STATE, action) => {
         total: calculateTotal(products),
       }
 
+    case Types.REMOVE_TO_CART:
+      products = state.products.filter(product => product.id !== action.payload)
+
+      return {
+        ...state,
+        products,
+        amount: calculateAmount(products),
+        total: calculateTotal(products),
+      }
+
     default:
       return state
   }

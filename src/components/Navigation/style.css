@@ -1,4 +1,4 @@
-.container {
+.navigation-container {
   width: 100%;
   background-color: var(--primary);
 }
@@ -21,7 +21,11 @@
 .navigation .logo {
   display: flex;
   align-items: center;
+}
+
+.navigation .logo a {
   color: var(--contrast);
+  text-decoration: none;
 }
 
 .navigation ul {
@@ -34,6 +38,7 @@
 }
 
 .navigation ul li a {
+  position: relative;
   display: flex;
   align-items: center;
   width: 100%;
@@ -50,4 +55,11 @@
 .navigation ul li a svg {
   width: 30px;
   height: 30px;
+}
+
+.navigation-cart-amount {
+  position: absolute;
+  bottom: 5px;
+  right: 5px;
+  font-weight: 700;
 }

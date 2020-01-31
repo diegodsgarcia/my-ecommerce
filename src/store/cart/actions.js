@@ -2,7 +2,7 @@ import { action } from 'typesafe-actions'
 
 export const Types = {
   ADD_TO_CART: '@cart/ADD_TO_CART',
-  REMOVE_TO_CART: '@cart/ADD_TO_CART',
+  REMOVE_TO_CART: '@cart/REMOVE_TO_CART',
   UPDATE_AMOUNT_OF_PRODUCT: '@cart/UPDATE_AMOUNT_OF_PRODUCT',
 }
 

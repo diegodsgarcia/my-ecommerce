@@ -14,23 +14,8 @@ main {
   height: 100%;
 }
 
-body {
-  -webkit-font-smoothing: antialiased;
-  overflow: hidden;
-}
-
-body,
-input,
-button {
-  font-family: Roboto, sans-serif;
-}
-
 ul {
   list-style: none;
-}
-
-p {
-  color: var(--text);
 }
 
 input {
@@ -42,6 +27,35 @@ main {
   grid-template-rows: 60px 1fr;
 }
 
+/*Typographys */
+body {
+  -webkit-font-smoothing: antialiased;
+  overflow: hidden;
+}
+
+body,
+input,
+button {
+  font-family: Roboto, sans-serif;
+}
+
+p {
+  color: var(--text);
+}
+
+h1 {
+  font-size: 1.7rem;
+}
+
+h2 {
+  font-size: 1.5rem;
+}
+
+h3 {
+  font-size: 1.2rem;
+}
+
+/* Buttons */
 .button {
   display: flex;
   align-items: center;
@@ -54,7 +68,7 @@ main {
   text-decoration: none;
   font-weight: 700;
   cursor: pointer;
-  transition: background-color 0.2, box-shadow 0.2, color 0.2;
+  transition: background-color 0.2s, box-shadow 0.2s, color 0.2s;
 }
 
 .button:hover {
@@ -72,6 +86,7 @@ main {
   color: var(--dark);
 }
 
+/* Variables */
 :root {
   --primary: #ff5722;
   --dark: #b53810;

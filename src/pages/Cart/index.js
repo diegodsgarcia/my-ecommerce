@@ -1,9 +1,11 @@
 import React from 'react'
 import { useSelector, useDispatch } from 'react-redux'
+import { Link } from 'react-router-dom'
+import { CloseCircle } from 'styled-icons/remix-fill/CloseCircle'
 
 import Page from '../../components/Page'
 
-import { updateCartAmount } from '../../service/cart'
+import { updateCartAmount, removeInCart } from '../../service/cart'
 import { currency } from '../../service/utils'
 
 import './style.css'
@@ -38,15 +40,26 @@ function Cart() {
                 <div className="cart-item-price-total">
                   {currency(item.price * item.amount)}
                 </div>
+                <CloseCircle
+                  className="cart-item-remove"
+                  onClick={() => dispatch(removeInCart(item))}
+                />
               </li>
             ))}
           </ul>
         ) : (
           <p>Não há nenhum produto em sem carrinho</p>
         )}
-        <div className="cart-total">
-          <div className="cart-total-title">Total:</div>
-          <div className="cart-total-price">{currency(total)}</div>
+        <div className="cart-footer">
+          <div className="cart-total">
+            <div className="cart-total-title">Total:</div>
+            <div className="cart-total-price">{currency(total)}</div>
+          </div>
+          {products.length ? (
+            <Link className="button">Finalizar compras</Link>
+          ) : (
+            ''
+          )}
         </div>
       </div>
     </Page>

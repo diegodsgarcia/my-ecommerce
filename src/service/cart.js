@@ -30,13 +30,13 @@ function updateCartAmount(cartItem, amount) {
 function calculateAmount(cartList) {
   return cartList
     .map(item => item.amount)
-    .reduce((count, value) => count + value)
+    .reduce((count, value) => count + value, 0)
 }
 
 function calculateTotal(cartList) {
   return cartList
     .map(item => item.price * item.amount)
-    .reduce((count, value) => count + value)
+    .reduce((count, value) => count + value, 0)
 }
 
 export {

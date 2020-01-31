@@ -1,5 +1,7 @@
 import React from 'react'
-import { NavLink } from 'react-router-dom'
+import { Link, NavLink } from 'react-router-dom'
+
+import { useSelector } from 'react-redux'
 
 import { Home } from 'styled-icons/boxicons-solid/Home'
 import { Cart } from 'styled-icons/boxicons-solid/Cart'
@@ -7,11 +9,14 @@ import { Cart } from 'styled-icons/boxicons-solid/Cart'
 import './style.css'
 
 function Navigation() {
+  const cartAmount = useSelector(state => state.cart.amount)
   return (
-    <div className="container">
+    <div className="navigation-container">
       <nav className="navigation">
         <div className="logo">
-          <h2>My E-commerce</h2>
+          <Link to="/">
+            <h2>My E-commerce</h2>
+          </Link>
         </div>
         <ul>
           <li>
@@ -22,6 +27,7 @@ function Navigation() {
           <li>
             <NavLink to="/carrinho">
               <Cart />
+              <span className="navigation-cart-amount">{cartAmount}</span>
             </NavLink>
           </li>
         </ul>
