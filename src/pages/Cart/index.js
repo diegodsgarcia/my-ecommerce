@@ -1,38 +1,52 @@
 import React from 'react'
+import { useSelector, useDispatch } from 'react-redux'
 
 import Page from '../../components/Page'
 
+import { updateCartAmount } from '../../service/cart'
 import { currency } from '../../service/utils'
 
 import './style.css'
 
 function Cart() {
-  const items = new Array(100).fill('test')
+  const { products, total } = useSelector(state => state.cart)
+  const dispatch = useDispatch()
+
   return (
     <Page>
       <div className="cart">
         <h1 className="cart-title">Meu Carrinho</h1>
-        <ul className="cart-list">
-          {items.map((item, i) => (
-            <li key={i} className="cart-item">
-              <figure>
-                <img
-                  src="https://images-na.ssl-images-amazon.com/images/I/81lwcYUU9TL._AC_SY445_.jpg"
-                  alt=""
-                />
-              </figure>
-              <div className="cart-item-title">Titulo</div>
-              <div className="cart-item-amount">
-                <input type="number" placeholder="1" />
-              </div>
-              <div className="cart-item-price">{currency(100)}</div>
-              <div className="cart-item-price-total">{currency(200)}</div>
-            </li>
-          ))}
-        </ul>
+        {products.length ? (
+          <ul className="cart-list">
+            {products.map(item => (
+              <li key={item.id} className="cart-item">
+                <figure>
+                  <img src={item.imageUrl} alt={item.name} />
+                </figure>
+                <div className="cart-item-title">{item.name}</div>
+                <div className="cart-item-amount">
+                  <input
+                    onChange={element => {
+                      dispatch(updateCartAmount(item, element.target.value))
+                    }}
+                    type="number"
+                    min="1"
+                    placeholder={item.amount}
+                  />
+                </div>
+                <div className="cart-item-price">{currency(item.price)}</div>
+                <div className="cart-item-price-total">
+                  {currency(item.price * item.amount)}
+                </div>
+              </li>
+            ))}
+          </ul>
+        ) : (
+          <p>Não há nenhum produto em sem carrinho</p>
+        )}
         <div className="cart-total">
           <div className="cart-total-title">Total:</div>
-          <div className="cart-total-price">{currency(2000)}</div>
+          <div className="cart-total-price">{currency(total)}</div>
         </div>
       </div>
     </Page>
