@@ -1,0 +1,25 @@
+.field {
+  position: relative;
+  margin: 10px 0;
+  border-bottom: 1px solid #000;
+}
+
+.field.focused .label {
+  font-size: 0.8rem;
+  transform: translateY(-20px);
+}
+
+.label {
+  position: absolute;
+  bottom: 5px;
+  left: 0;
+  pointer-events: none;
+  transition: transform 0.2s, font-size 0.2s;
+}
+
+.input {
+  display: block;
+  padding-top: 20px;
+  padding-bottom: 5px;
+  width: 100%;
+}

@@ -4,7 +4,7 @@ import { Provider } from 'react-redux'
 
 import store from './store'
 
-import { Home, Cart, Description } from './pages'
+import { Home, Cart, Checkout } from './pages'
 import { Navigation } from './components'
 
 import './styles/global.css'
@@ -19,8 +19,8 @@ function App() {
             <Route exact path="/">
               <Home />
             </Route>
-            <Route path="/descricao">
-              <Description />
+            <Route path="/finalizar-pedido">
+              <Checkout />
             </Route>
             <Route path="/carrinho">
               <Cart />

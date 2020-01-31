@@ -25,12 +25,12 @@
   padding: 0 20px;
 }
 
-.cart-item figure {
+.cart-item-figure {
   width: 100px;
   height: 100px;
 }
 
-.cart-item figure img {
+.cart-item-figure img {
   width: 100%;
   height: 100%;
 }

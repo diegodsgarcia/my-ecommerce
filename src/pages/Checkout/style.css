@@ -1,0 +1,61 @@
+.checkout {
+  display: grid;
+  grid-template-areas:
+    'title title'
+    'form info';
+}
+
+/* Checkout title*/
+.checkout-title {
+  grid-area: title;
+}
+
+/* Checkout Info */
+.checkout-info {
+  grid-area: info;
+  margin: 0 20px;
+}
+.checkout-item-figure {
+  width: 80px;
+  height: 80px;
+}
+
+.checkout-item {
+  display: flex;
+}
+
+.checkout-item-figure img {
+  width: 100%;
+  height: 100%;
+}
+
+.checkout-item-name,
+.checkout-item-amount,
+.checkout-item-price {
+  display: flex;
+  align-items: center;
+  padding: 0 10px;
+}
+
+.checkout-item-name {
+  flex: 1;
+}
+
+.checkout-resume {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.checkout-resume-total {
+  font-weight: 700;
+  font-size: 1.4rem;
+}
+
+/* Checkout Form */
+.checkout-form {
+  grid-area: form;
+}
+
+.checkout-form button {
+  width: 100%;
+}

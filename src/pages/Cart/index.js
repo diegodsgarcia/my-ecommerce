@@ -22,14 +22,14 @@ function Cart() {
           <ul className="cart-list">
             {products.map(item => (
               <li key={item.id} className="cart-item">
-                <figure>
+                <figure className="cart-item-figure">
                   <img src={item.imageUrl} alt={item.name} />
                 </figure>
                 <div className="cart-item-title">{item.name}</div>
                 <div className="cart-item-amount">
                   <input
-                    onChange={element => {
-                      dispatch(updateCartAmount(item, element.target.value))
+                    onChange={event => {
+                      dispatch(updateCartAmount(item, event.target.value))
                     }}
                     type="number"
                     min="1"
@@ -56,7 +56,9 @@ function Cart() {
             <div className="cart-total-price">{currency(total)}</div>
           </div>
           {products.length ? (
-            <Link className="button">Finalizar compras</Link>
+            <Link className="button" to="/finalizar-pedido">
+              Finalizar pedido
+            </Link>
           ) : (
             ''
           )}
