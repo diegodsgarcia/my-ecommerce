@@ -19,6 +19,7 @@ function Checkout() {
     cvc: '',
     expiry: '',
     number: '',
+    focused: '',
   })
 
   const [address, setAddress] = useState({
@@ -71,51 +72,79 @@ function Checkout() {
             <Input
               mask="99999-999"
               type="text"
-              name="CEP"
+              placeholder="CEP"
               onChange={onCheckAddress}
               value={address.cep}
             />
-            <Input type="text" name="Endereço" value={address.logradouro} />
-            <Input type="text" name="Cidade" value={address.localidade} />
-            <Input type="text" name="Estado" value={address.uf} />
-            <Input type="text" name="Número" />
-            <Input type="text" name="Complemento" />
+            <Input
+              type="text"
+              placeholder="Endereço"
+              value={address.logradouro}
+            />
+            <Input
+              type="text"
+              placeholder="Cidade"
+              value={address.localidade}
+            />
+            <Input type="text" placeholder="Estado" value={address.uf} />
+            <Input type="text" placeholder="Número" />
+            <Input type="text" placeholder="Complemento" />
           </div>
           <h3>Dados de pagamento</h3>
-          <div className="checkout-form-group">
-            <Input
-              type="text"
-              name="Nome do cartão"
-              onChange={event =>
-                setCardInfo({ ...cardInfo, name: event.target.value })
-              }
-            />
-            <Input
-              mask="9999 9999 9999 9999"
-              type="text"
-              name="Numero do cartão"
-              onChange={event =>
-                setCardInfo({ ...cardInfo, number: event.target.value })
-              }
-            />
-            <Input
-              mask="99/99"
-              type="text"
-              name="Data de validade do cartão "
-              onChange={event =>
-                setCardInfo({ ...cardInfo, expiry: event.target.value })
-              }
-            />
-            <Input
-              mask="999"
-              type="text"
-              name="Codigo verificador do cartão"
-              onChange={event =>
-                setCardInfo({ ...cardInfo, cvc: event.target.value })
-              }
-            />
+          <div className="checkout-form-payment">
+            <div>
+              <Input
+                type="text"
+                placeholder="Nome do cartão"
+                name="name"
+                onFocus={event => {
+                  console.log(1)
+                  setCardInfo({ ...cardInfo, focused: event.target.name })
+                }}
+                onChange={event =>
+                  setCardInfo({ ...cardInfo, name: event.target.value })
+                }
+              />
+              <Input
+                mask="9999 9999 9999 9999"
+                type="text"
+                name="number"
+                placeholder="Numero do cartão"
+                onFocus={event =>
+                  setCardInfo({ ...cardInfo, focused: event.target.name })
+                }
+                onChange={event =>
+                  setCardInfo({ ...cardInfo, number: event.target.value })
+                }
+              />
+              <Input
+                mask="99/99"
+                type="text"
+                name="expiry"
+                placeholder="Data de validade do cartão"
+                onFocus={event =>
+                  setCardInfo({ ...cardInfo, focused: event.target.name })
+                }
+                onChange={event =>
+                  setCardInfo({ ...cardInfo, expiry: event.target.value })
+                }
+              />
+              <Input
+                mask="999"
+                type="text"
+                name="cvc"
+                placeholder="Codigo verificador do cartão"
+                onFocus={event =>
+                  setCardInfo({ ...cardInfo, focused: event.target.name })
+                }
+                onChange={event =>
+                  setCardInfo({ ...cardInfo, cvc: event.target.value })
+                }
+              />
+            </div>
+            <Cards {...cardInfo} />
           </div>
-          <Cards {...cardInfo} />
+
           <button className="button">Finalizar compra</button>
         </form>
 

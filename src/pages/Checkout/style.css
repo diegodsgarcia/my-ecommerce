@@ -59,3 +59,22 @@
 .checkout-form button {
   width: 100%;
 }
+
+.checkout-form-payment {
+  display: flex;
+  flex-direction: column;
+}
+
+@media (min-width: 600px) {
+  .checkout-form-payment {
+    flex-direction: row;
+  }
+
+  .checkout-form-payment > * {
+    flex: 1;
+  }
+
+  .checkout-form-payment > *:nth-child(2) {
+    margin-left: 20px;
+  }
+}

@@ -3,7 +3,18 @@ import InputMask from 'react-input-mask'
 
 import './style.css'
 
-function Input({ id, name, value, type, min, max, onChange, mask }) {
+function Input({
+  id,
+  name,
+  placeholder,
+  value,
+  type,
+  min,
+  max,
+  onChange,
+  onFocus,
+  mask,
+}) {
   const [focused, setFocused] = useState(false)
   const [hasValue, setHasValue] = useState(false)
 
@@ -13,12 +24,13 @@ function Input({ id, name, value, type, min, max, onChange, mask }) {
 
   return (
     <div className={`field ${focused || hasValue ? 'focused' : ''}`}>
-      <label className="label">{name}</label>
+      <label className="label">{placeholder}</label>
       <InputMask
         mask={mask}
         className="input"
         id={id}
-        htmlFor={name}
+        htmlFor={placeholder}
+        name={name}
         type={type}
         min={min}
         max={max}
@@ -34,7 +46,13 @@ function Input({ id, name, value, type, min, max, onChange, mask }) {
             onChange(event)
           }
         }}
-        onFocus={() => setFocused(true)}
+        onFocus={event => {
+          setFocused(true)
+
+          if (onFocus) {
+            onFocus(event)
+          }
+        }}
         onBlur={() => setFocused(false)}
       />
     </div>
