@@ -1,10 +1,18 @@
 .checkout {
   display: grid;
   grid-template-areas:
-    'title title'
-    'form info';
+    'title'
+    'info'
+    'form';
 }
 
+@media (min-width: 800px) {
+  .checkout {
+    grid-template-areas:
+      'title title'
+      'form info';
+  }
+}
 /* Checkout title*/
 .checkout-title {
   grid-area: title;
@@ -60,21 +68,21 @@
   width: 100%;
 }
 
-.checkout-form-payment {
+.checkout-form-group {
   display: flex;
   flex-direction: column;
 }
 
-@media (min-width: 600px) {
-  .checkout-form-payment {
+@media (min-width: 1035px) {
+  .checkout-form-group {
     flex-direction: row;
   }
 
-  .checkout-form-payment > * {
+  .checkout-form-group > * {
     flex: 1;
   }
 
-  .checkout-form-payment > *:nth-child(2) {
+  .checkout-form-group > *:nth-child(2) {
     margin-left: 20px;
   }
 }

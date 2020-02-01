@@ -1,3 +1,4 @@
+/* eslint-disable no-useless-escape */
 import axios from 'axios'
 import pagarme from 'pagarme'
 
@@ -17,78 +18,123 @@ async function getAddress(cep) {
   return data
 }
 
-async function createTransaction() {
+async function createTransaction({ user, cardInfo, products, address, total }) {
   const client = await pagarme.client.connect({
     api_key: process.env.REACT_APP_PAGARME_KEY,
   })
 
+  const items = convertProductsToItemsPagarme(products)
+
   const transaction = await client.transactions.create({
-    amount: 21000,
-    card_number: '4111111111111111',
-    card_cvv: '123',
-    card_expiration_date: '0922',
-    card_holder_name: 'Morpheus Fishburne',
+    amount: convertPriceToPagarme(total),
+    card_number: cardInfo.number,
+    card_cvv: cardInfo.cvc,
+    card_expiration_date: convertExpirationDateToPagarme(cardInfo.expiry),
+    card_holder_name: cardInfo.name,
+    split_rules: [
+      {
+        percentage: 85,
+        recipient_id: user.id,
+      },
+      {
+        percentage: 15,
+        recipient_id: 'sr_cj41w9m4e01tb316dl2f2veyz',
+      },
+    ],
     customer: {
-      external_id: '#3311',
-      name: 'Morpheus Fishburne',
+      external_id: '#123',
+      name: user.name,
       type: 'individual',
       country: 'br',
-      email: 'mopheus@nabucodonozor.com',
+      email: user.email,
       documents: [
         {
           type: 'cpf',
-          number: '30621143049',
+          number: convertCpfToPagarme(user.cpf),
         },
       ],
-      phone_numbers: ['+5511999998888', '+5511888889999'],
-      birthday: '1965-01-01',
+      phone_numbers: [convertPhoneToPagarme(user.phone)],
+      birthday: convertDateToPagarme(user.birthday),
     },
     billing: {
-      name: 'Trinity Moss',
+      name: 'My E-commerce',
       address: {
         country: 'br',
         state: 'sp',
-        city: 'Cotia',
-        neighborhood: 'Rio Cotia',
-        street: 'Rua Matrix',
-        street_number: '9999',
-        zipcode: '06714360',
+        city: 'São Paulo',
+        neighborhood: 'Paraiso',
+        street: 'Av. Paulista',
+        street_number: '447',
+        zipcode: '01310000',
       },
     },
     shipping: {
-      name: 'Neo Reeves',
+      name: user.name,
       fee: 1000,
-      delivery_date: '2000-12-21',
+      delivery_date: getDateNowMoreTwoDays(),
       expedited: true,
       address: {
         country: 'br',
-        state: 'sp',
-        city: 'Cotia',
-        neighborhood: 'Rio Cotia',
-        street: 'Rua Matrix',
-        street_number: '9999',
-        zipcode: '06714360',
+        state: address.state.toLowerCase(),
+        city: address.city,
+        neighborhood: address.neighborhood,
+        street: address.street,
+        street_number: address.streetNumber,
+        zipcode: convertZipcodeToPagarme(address.zipcode),
       },
     },
-    items: [
-      {
-        id: 'r123',
-        title: 'Red pill',
-        unit_price: 10000,
-        quantity: 1,
-        tangible: true,
-      },
-      {
-        id: 'b123',
-        title: 'Blue pill',
-        unit_price: 10000,
-        quantity: 1,
-        tangible: true,
-      },
-    ],
+    items,
   })
-
   return transaction
+
+  function convertPriceToPagarme(price) {
+    return Number(price.toString().replace(/\./g, ''))
+  }
+
+  function convertZipcodeToPagarme(zipcode) {
+    return zipcode.replace(/\-/g, '')
+  }
+
+  function convertExpirationDateToPagarme(expiry) {
+    return expiry.replace('/', '')
+  }
+
+  function convertDateToPagarme(date) {
+    const [day, month, year] = date.split('/')
+    return `${year}-${month}-${day}`
+  }
+
+  function convertPhoneToPagarme(phone) {
+    return `+55${phone.replace(/[\(\)\-]/g, '')}`
+  }
+
+  function convertCpfToPagarme(cpf) {
+    return cpf.replace(/[\.\-]/g, '')
+  }
+
+  function convertProductsToItemsPagarme(products) {
+    return products.map(({ id, name, price, amount }) => ({
+      id,
+      title: name,
+      unit_price: convertPriceToPagarme(price),
+      quantity: amount,
+      tangible: true,
+    }))
+  }
+
+  function getDateNowMoreTwoDays() {
+    const oneDay = 60 * 60 * 24 * 1000
+    const date = new Date(new Date().getTime() + oneDay * 2)
+
+    let month = `${date.getMonth() + 1}`
+    let day = `${date.getDate()}`
+    let year = `${date.getFullYear()}`
+
+    if (month.length < 2) month = '0' + month
+    if (day.length < 2) day = '0' + day
+
+    return [year, month, day].join('-')
+  }
 }
 
 export { getProducts, getAddress, createTransaction }
