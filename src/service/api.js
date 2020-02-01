@@ -34,7 +34,7 @@ async function createTransaction({ user, cardInfo, products, address, total }) {
     split_rules: [
       {
         percentage: 85,
-        recipient_id: user.id,
+        recipient_id: 'sr_cj41w9m4e01tb316dl2f2veyz',
       },
       {
         percentage: 15,

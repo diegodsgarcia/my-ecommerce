@@ -15,7 +15,6 @@ function Checkout() {
   const total = useSelector(state => state.cart.total)
 
   const [user, setUser] = useState({
-    id: '1',
     name: '',
     email: '',
     birthday: '',
