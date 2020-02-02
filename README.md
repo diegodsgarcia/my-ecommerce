@@ -52,7 +52,7 @@ npm run createReceptors
 O backend foi utilizado a aplicação mockapi.io para criar os mocks de produtos. Caso você deseje criar sua própria API, você pode encontrar na pasta
 **mock**, os arquivos json utilizados para criar a lista de produtos. A API está disponível nesta URL:
 
-(https://5e3317ede0161c00140abf7f.mockapi.io/products)[https://5e3317ede0161c00140abf7f.mockapi.io/products]
+[https://5e3317ede0161c00140abf7f.mockapi.io/products](https://5e3317ede0161c00140abf7f.mockapi.io/products)
 
 ## Tecnologias utilizadas
 
