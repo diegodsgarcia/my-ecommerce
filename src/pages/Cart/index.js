@@ -11,7 +11,7 @@ import { currency } from '../../service/utils'
 import './style.css'
 
 function Cart() {
-  const { products, total } = useSelector(state => state.cart)
+  const { products = [], total = 0 } = useSelector(state => state.cart)
   const dispatch = useDispatch()
 
   return (
