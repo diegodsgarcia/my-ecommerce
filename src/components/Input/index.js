@@ -11,6 +11,7 @@ function Input({
   type,
   min,
   max,
+  required,
   onChange,
   onFocus,
   mask,
@@ -35,6 +36,7 @@ function Input({
         min={min}
         max={max}
         value={value}
+        required={required}
         onChange={event => {
           if (event.target.value) {
             setHasValue(true)

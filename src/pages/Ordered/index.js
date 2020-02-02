@@ -15,18 +15,16 @@ function Ordered() {
 
   useEffect(() => {
     getTransaction(id).then(setTransaction)
-    getPayables(id).then(setPayables)
+    getPayables(id).then(res => setPayables(res))
   }, [id])
 
-  if (!transaction || !client || !platform) {
+  if (!transaction) {
     return (
       <Page>
         <p>Você precisa possuír um ID de trançação para ver sua compra</p>
       </Page>
     )
   }
-
-  console.log(transaction)
 
   return (
     <Page>
@@ -44,10 +42,10 @@ function Ordered() {
         </ul>
         <p>{currency(convertDecimal(transaction.amount))}</p>
         <h2 className="ordered-subtitle">Cliente</h2>
-        <p>{currency(convertDecimal(client.amount))}</p>
+        {client && <p>{currency(convertDecimal(client.amount))}</p>}
 
         <h2 className="ordered-subtitle">Plataforma</h2>
-        <p>{currency(convertDecimal(platform.amount))}</p>
+        {platform && <p>{currency(convertDecimal(platform.amount))}</p>}
       </div>
     </Page>
   )

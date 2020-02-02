@@ -46,6 +46,9 @@ const reducer = (state = loadState(INITIAL_STATE, 'cart'), action) => {
         total: calculateTotal(products),
       }
 
+    case Types.CLEAR_CART:
+      return INITIAL_STATE
+
     default:
       return state
   }

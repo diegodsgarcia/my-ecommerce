@@ -1,7 +1,9 @@
 import React, { useState } from 'react'
-import { useSelector } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux'
 import { useHistory } from 'react-router-dom'
 import Cards from 'react-credit-cards'
+
+import { clearCart } from '../../store/cart/actions'
 
 import { createTransaction, getAddress } from '../../service/api'
 import { currency } from '../../service/utils'
@@ -15,6 +17,7 @@ function Checkout() {
   const products = useSelector(state => state.cart.products)
   const total = useSelector(state => state.cart.total)
   const history = useHistory()
+  const dispatch = useDispatch()
 
   const [error, setError] = useState(null)
 
@@ -83,6 +86,7 @@ function Checkout() {
         total,
       })
 
+      dispatch(clearCart())
       history.push(`/pedido/${tid}`)
     } catch (error) {
       setError(error)
@@ -118,6 +122,7 @@ function Checkout() {
                 type="text"
                 placeholder="Nome"
                 value={user.name}
+                required
                 onChange={event =>
                   setUser({ ...user, name: event.target.value })
                 }
@@ -126,6 +131,7 @@ function Checkout() {
                 type="email"
                 placeholder="Email"
                 value={user.email}
+                required
                 onChange={event =>
                   setUser({ ...user, email: event.target.value })
                 }
@@ -135,6 +141,7 @@ function Checkout() {
                 type="text"
                 placeholder="Data de nascimento"
                 value={user.birthday}
+                required
                 onChange={event =>
                   setUser({ ...user, birthday: event.target.value })
                 }
@@ -144,6 +151,7 @@ function Checkout() {
                 type="text"
                 placeholder="Telefone"
                 value={user.phone}
+                required
                 onChange={event =>
                   setUser({ ...user, phone: event.target.value })
                 }
@@ -153,6 +161,7 @@ function Checkout() {
                 type="text"
                 placeholder="CPF"
                 value={user.cpf}
+                required
                 onChange={event =>
                   setUser({ ...user, cpf: event.target.value })
                 }
@@ -163,6 +172,7 @@ function Checkout() {
                 mask="99999-999"
                 type="text"
                 placeholder="CEP"
+                required
                 value={address.zipcode}
                 onChange={onCheckAddress}
               />
@@ -170,6 +180,7 @@ function Checkout() {
                 type="text"
                 placeholder="Endereço"
                 value={address.street}
+                required
                 onChange={event =>
                   setAddress({ ...address, street: event.target.value })
                 }
@@ -178,6 +189,7 @@ function Checkout() {
                 type="text"
                 placeholder="Bairro"
                 value={address.neighborhood}
+                required
                 onChange={event =>
                   setAddress({ ...address, neighborhood: event.target.value })
                 }
@@ -186,6 +198,7 @@ function Checkout() {
                 type="text"
                 placeholder="Cidade"
                 value={address.city}
+                required
                 onChange={event =>
                   setAddress({ ...address, city: event.target.value })
                 }
@@ -194,6 +207,7 @@ function Checkout() {
                 type="text"
                 placeholder="Estado"
                 value={address.state}
+                required
                 onChange={event =>
                   setAddress({ ...address, state: event.target.value })
                 }
@@ -202,6 +216,7 @@ function Checkout() {
                 type="text"
                 placeholder="Número"
                 value={address.streetNumber}
+                required
                 onChange={event =>
                   setAddress({ ...address, streetNumber: event.target.value })
                 }
@@ -216,6 +231,7 @@ function Checkout() {
                 placeholder="Nome do cartão"
                 name="name"
                 value={cardInfo.name}
+                required
                 onFocus={event => {
                   setCardInfo({ ...cardInfo, focused: event.target.name })
                 }}
@@ -229,6 +245,7 @@ function Checkout() {
                 name="number"
                 placeholder="Numero do cartão"
                 value={cardInfo.number}
+                required
                 onFocus={event =>
                   setCardInfo({ ...cardInfo, focused: event.target.name })
                 }
@@ -242,6 +259,7 @@ function Checkout() {
                 name="expiry"
                 placeholder="Data de validade do cartão"
                 value={cardInfo.expiry}
+                required
                 onFocus={event =>
                   setCardInfo({ ...cardInfo, focused: event.target.name })
                 }
@@ -255,6 +273,7 @@ function Checkout() {
                 name="cvc"
                 placeholder="Codigo verificador do cartão"
                 value={cardInfo.cvc}
+                required
                 onFocus={event =>
                   setCardInfo({ ...cardInfo, focused: event.target.name })
                 }
