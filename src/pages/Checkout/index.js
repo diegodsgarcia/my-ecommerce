@@ -1,11 +1,12 @@
 import React, { useState } from 'react'
 import { useSelector } from 'react-redux'
+import { useHistory } from 'react-router-dom'
 import Cards from 'react-credit-cards'
 
 import { createTransaction, getAddress } from '../../service/api'
 import { currency } from '../../service/utils'
 
-import { Page, Input } from '../../components'
+import { Page, Alert, Input } from '../../components'
 
 import 'react-credit-cards/es/styles-compiled.css'
 import './style.css'
@@ -13,6 +14,9 @@ import './style.css'
 function Checkout() {
   const products = useSelector(state => state.cart.products)
   const total = useSelector(state => state.cart.total)
+  const history = useHistory()
+
+  const [error, setError] = useState(null)
 
   const [user, setUser] = useState({
     name: '',
@@ -38,17 +42,6 @@ function Checkout() {
     cvc: '',
     focused: '',
   })
-
-  if (!products.length) {
-    return (
-      <Page>
-        <h1>Finalizar pedido</h1>
-        <p>
-          Você deve adicionar algum item seu carrinho, para finalizar o pedido!
-        </p>
-      </Page>
-    )
-  }
 
   async function onCheckAddress(event) {
     const zipcode = event.target.value
@@ -80,20 +73,42 @@ function Checkout() {
 
   async function onFinishCheckout(event) {
     event.preventDefault()
-    const result = await createTransaction({
-      user,
-      cardInfo,
-      products,
-      address,
-      total,
-    })
-    console.log(result)
+
+    try {
+      const { tid } = await createTransaction({
+        user,
+        cardInfo,
+        products,
+        address,
+        total,
+      })
+
+      history.push(`/pedido/${tid}`)
+    } catch (error) {
+      setError(error)
+    }
+  }
+
+  if (!products.length) {
+    return (
+      <Page>
+        <h1>Finalizar pedido</h1>
+        <p>
+          Você deve adicionar algum item seu carrinho, para finalizar o pedido!
+        </p>
+      </Page>
+    )
   }
 
   return (
     <Page>
       <div className="checkout">
         <h1 className="checkout-title">Finalizar pedido</h1>
+        {error && (
+          <Alert className="checkout-error" onClick={() => setError(false)}>
+            Algum campo está inválido para continuar o pedido.
+          </Alert>
+        )}
 
         <form className="checkout-form" onSubmit={onFinishCheckout}>
           <h3>Informações pessoais</h3>

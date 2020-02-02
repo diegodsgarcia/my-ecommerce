@@ -90,6 +90,7 @@ h3 {
 :root {
   --primary: #ff5722;
   --dark: #b53810;
+  --warn: #f44336;
   --contrast: #fff;
   --text: #696969;
   --breakpoint-sm: 480px;

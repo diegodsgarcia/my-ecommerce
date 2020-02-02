@@ -2,6 +2,7 @@
   display: grid;
   grid-template-areas:
     'title'
+    'error'
     'info'
     'form';
 }
@@ -10,12 +11,18 @@
   .checkout {
     grid-template-areas:
       'title title'
+      'error error'
       'form info';
   }
 }
 /* Checkout title*/
 .checkout-title {
   grid-area: title;
+}
+
+/* Checkout error*/
+.checkout-error {
+  grid-area: error;
 }
 
 /* Checkout Info */

@@ -34,11 +34,11 @@ async function createTransaction({ user, cardInfo, products, address, total }) {
     split_rules: [
       {
         percentage: 85,
-        recipient_id: 'sr_cj41w9m4e01tb316dl2f2veyz',
+        recipient_id: process.env.REACT_APP_CLIENT_RECEPTOR_ID,
       },
       {
         percentage: 15,
-        recipient_id: 'sr_cj41w9m4e01tb316dl2f2veyz',
+        recipient_id: process.env.REACT_APP_PLATFORM_RECEPTOR_ID,
       },
     ],
     customer: {
