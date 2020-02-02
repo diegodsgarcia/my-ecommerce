@@ -2,12 +2,8 @@
 import axios from 'axios'
 import pagarme from 'pagarme'
 
-const api = axios.create({
-  baseURL: process.env.REACT_APP_API,
-})
-
 async function getProducts() {
-  const { data } = await api.get('/products')
+  const { data } = await axios.get(`${process.env.REACT_APP_API}/products`)
   return data.products
 }
 
@@ -137,4 +133,12 @@ async function createTransaction({ user, cardInfo, products, address, total }) {
   }
 }
 
-export { getProducts, getAddress, createTransaction }
+async function findTransaction(id) {
+  const client = await pagarme.client.connect({
+    api_key: process.env.REACT_APP_PAGARME_KEY,
+  })
+
+  return await client.transactions.find({ id })
+}
+
+export { getProducts, getAddress, createTransaction, findTransaction }
