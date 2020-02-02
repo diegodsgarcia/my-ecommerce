@@ -1,13 +1,15 @@
-/* eslint-disable no-case-declarations */
 import { Types } from './actions'
+import { loadState } from '../localStorage'
 
 import { calculateAmount, calculateTotal } from '../../service/cart'
 
 const INITIAL_STATE = {
   products: [],
+  amount: 0,
+  total: 0,
 }
 
-const reducer = (state = INITIAL_STATE, action) => {
+const reducer = (state = loadState(INITIAL_STATE, 'cart'), action) => {
   let products
   switch (action.type) {
     case Types.ADD_TO_CART:

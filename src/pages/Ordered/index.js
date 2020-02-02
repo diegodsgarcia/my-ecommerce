@@ -16,7 +16,7 @@ function Ordered() {
   useEffect(() => {
     getTransaction(id).then(setTransaction)
     getPayables(id).then(setPayables)
-  }, [])
+  }, [id])
 
   if (!transaction || !client || !platform) {
     return (
@@ -25,6 +25,8 @@ function Ordered() {
       </Page>
     )
   }
+
+  console.log(transaction)
 
   return (
     <Page>
