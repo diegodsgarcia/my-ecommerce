@@ -14,4 +14,14 @@ function currency(value) {
   })
 }
 
-export { truncate, currency }
+function convertDecimal(value) {
+  value = value.toString()
+  const lastPosition = value.length
+  const beforeDotPosition = value.length - 2
+  return +`${value.slice(0, beforeDotPosition)}.${value.slice(
+    beforeDotPosition,
+    lastPosition
+  )}`
+}
+
+export { truncate, currency, convertDecimal }

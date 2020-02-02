@@ -133,7 +133,7 @@ async function createTransaction({ user, cardInfo, products, address, total }) {
   }
 }
 
-async function findTransaction(id) {
+async function getTransaction(id) {
   const client = await pagarme.client.connect({
     api_key: process.env.REACT_APP_PAGARME_KEY,
   })
@@ -141,4 +141,18 @@ async function findTransaction(id) {
   return await client.transactions.find({ id })
 }
 
-export { getProducts, getAddress, createTransaction, findTransaction }
+async function getPayables(id) {
+  const client = await pagarme.client.connect({
+    api_key: process.env.REACT_APP_PAGARME_KEY,
+  })
+
+  return await client.payables.find({ transactionId: id })
+}
+
+export {
+  getProducts,
+  getAddress,
+  createTransaction,
+  getTransaction,
+  getPayables,
+}

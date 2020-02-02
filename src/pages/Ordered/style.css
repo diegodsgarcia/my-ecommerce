@@ -1,0 +1,11 @@
+.ordered-title {
+  padding: 10px;
+  text-align: center;
+  background-color: var(--success);
+  color: var(--contrast);
+}
+
+.ordered-subtitle {
+  margin: 10px 0;
+  font-size: 1.2rem;
+}
