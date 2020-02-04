@@ -84,7 +84,11 @@ async function createTransaction({ user, cardInfo, products, address, total }) {
   return transaction
 
   function convertPriceToPagarme(price) {
-    return Number(price.toString().replace(/\./g, ''))
+    if (/\./g.test(price.toString())) {
+      return Number(price.toString().replace(/\./g, ''))
+    } else {
+      return Number(price.toString().padEnd(price.toString().length + 2, '0'))
+    }
   }
 
   function convertZipcodeToPagarme(zipcode) {
