@@ -1,0 +1,26 @@
+.form-checkout {
+  grid-area: form;
+}
+
+.form-checkout button {
+  width: 100%;
+}
+
+.form-checkout-group {
+  display: flex;
+  flex-direction: column;
+}
+
+@media (min-width: 1035px) {
+  .form-checkout-group {
+    flex-direction: row;
+  }
+
+  .form-checkout-group > * {
+    flex: 1;
+  }
+
+  .form-checkout-group > *:nth-child(2) {
+    margin-left: 20px;
+  }
+}

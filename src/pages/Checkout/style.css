@@ -67,29 +67,3 @@
 }
 
 /* Checkout Form */
-.checkout-form {
-  grid-area: form;
-}
-
-.checkout-form button {
-  width: 100%;
-}
-
-.checkout-form-group {
-  display: flex;
-  flex-direction: column;
-}
-
-@media (min-width: 1035px) {
-  .checkout-form-group {
-    flex-direction: row;
-  }
-
-  .checkout-form-group > * {
-    flex: 1;
-  }
-
-  .checkout-form-group > *:nth-child(2) {
-    margin-left: 20px;
-  }
-}
