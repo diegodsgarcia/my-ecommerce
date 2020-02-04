@@ -28,12 +28,15 @@ function Cart() {
                 <div className="cart-item-title">{item.name}</div>
                 <div className="cart-item-amount">
                   <input
-                    onChange={event => {
-                      dispatch(updateCartAmount(item, event.target.value))
-                    }}
                     type="number"
                     min="1"
                     placeholder={item.amount}
+                    onChange={event => {
+                      const value = +event.target.value
+                      if (value > 0) {
+                        dispatch(updateCartAmount(item, value))
+                      }
+                    }}
                   />
                 </div>
                 <div className="cart-item-price">{currency(item.price)}</div>

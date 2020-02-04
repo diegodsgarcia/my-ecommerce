@@ -37,6 +37,7 @@
 
 .checkout-item {
   display: flex;
+  margin: 10px 0;
 }
 
 .checkout-item-figure img {
@@ -65,5 +66,3 @@
   font-weight: 700;
   font-size: 1.4rem;
 }
-
-/* Checkout Form */
