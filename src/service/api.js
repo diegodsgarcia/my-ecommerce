@@ -23,7 +23,7 @@ async function createTransaction({ user, cardInfo, products, address, total }) {
 
   const transaction = await client.transactions.create({
     amount: convertPriceToPagarme(total),
-    card_number: cardInfo.number,
+    card_number: convertCardNumberToPagarme(cardInfo.number),
     card_cvv: cardInfo.cvc,
     card_expiration_date: convertExpirationDateToPagarme(cardInfo.expiry),
     card_holder_name: cardInfo.name,
@@ -89,6 +89,10 @@ async function createTransaction({ user, cardInfo, products, address, total }) {
     } else {
       return Number(price.toString().padEnd(price.toString().length + 2, '0'))
     }
+  }
+
+  function convertCardNumberToPagarme(cardNumber) {
+    return cardNumber.replace(/\s/g, '')
   }
 
   function convertZipcodeToPagarme(zipcode) {
