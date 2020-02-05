@@ -9,3 +9,35 @@
   margin: 10px 0;
   font-size: 1.2rem;
 }
+
+.ordered-item {
+  position: relative;
+  border-bottom: 1px solid var(--border);
+  padding: 10px 0;
+}
+
+.ordered-amount {
+  position: absolute;
+  top: 50%;
+  right: 10px;
+  transform: translateY(-50%);
+}
+
+.ordered-total {
+  margin: 10px 0;
+  font-size: 1.6rem;
+  color: #000;
+  text-align: right;
+}
+
+.ordered-receptors {
+  display: flex;
+  flex-direction: column;
+}
+
+@media (min-width: 620px) {
+  .ordered-receptors {
+    flex-direction: row;
+    justify-content: space-between;
+  }
+}

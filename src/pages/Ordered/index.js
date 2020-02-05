@@ -31,21 +31,28 @@ function Ordered() {
       <div className="ordered">
         <h1 className="ordered-title">Sua compra foi realizada!</h1>
         <h2 className="ordered-subtitle">Produtos</h2>
-        <ul>
+        <ul className="ordered-list">
           {transaction.items.map(item => (
-            <li key={item.id}>
+            <li key={item.id} className="ordered-item">
               <div>{item.title}</div>
               <div>{currency(convertDecimal(item.unit_price))}</div>
-              <div>{item.quantity}x</div>
+              <div className="ordered-amount">{item.quantity}x</div>
             </li>
           ))}
         </ul>
-        <p>{currency(convertDecimal(transaction.amount))}</p>
-        <h2 className="ordered-subtitle">Cliente</h2>
-        {client && <p>{currency(convertDecimal(client.amount))}</p>}
-
-        <h2 className="ordered-subtitle">Plataforma</h2>
-        {platform && <p>{currency(convertDecimal(platform.amount))}</p>}
+        <p className="ordered-total">
+          {currency(convertDecimal(transaction.amount))}
+        </p>
+        <div className="ordered-receptors">
+          <div>
+            <h2 className="ordered-subtitle">Cliente</h2>
+            {client && <p>{currency(convertDecimal(client.amount))}</p>}
+          </div>
+          <div>
+            <h2 className="ordered-subtitle">Plataforma</h2>
+            {platform && <p>{currency(convertDecimal(platform.amount))}</p>}
+          </div>
+        </div>
       </div>
     </Page>
   )
