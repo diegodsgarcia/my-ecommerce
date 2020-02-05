@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react'
+import { PropTypes } from 'prop-types'
 import InputMask from 'react-input-mask'
 
 import './style.css'
@@ -59,6 +60,20 @@ function Input({
       />
     </div>
   )
+}
+
+Input.propTypes = {
+  id: PropTypes.string,
+  name: PropTypes.string,
+  placeholder: PropTypes.string,
+  value: PropTypes.string,
+  type: PropTypes.string,
+  min: PropTypes.number,
+  max: PropTypes.number,
+  required: PropTypes.bool,
+  onChange: PropTypes.func,
+  onFocus: PropTypes.func,
+  mask: PropTypes.string,
 }
 
 export default Input

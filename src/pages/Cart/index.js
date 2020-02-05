@@ -29,7 +29,7 @@ function Cart() {
                 <div className="cart-item-amount">
                   <input
                     type="number"
-                    min="1"
+                    min={1}
                     placeholder={item.amount}
                     onChange={event => {
                       const value = +event.target.value
