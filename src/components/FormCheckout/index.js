@@ -2,6 +2,11 @@ import React, { useState } from 'react'
 import Cards from 'react-credit-cards'
 
 import { getAddress } from '../../service/api'
+import {
+  isValidCreditCardNumber,
+  isValidDateExpiry,
+  isValidCPF,
+} from '../../service/utils'
 
 import Input from '../Input'
 
@@ -9,33 +14,42 @@ import './style.css'
 
 function FormCheckout({ onSubmit }) {
   const [user, setUser] = useState({
-    name: '',
-    email: '',
-    birthday: '',
-    phone: '',
-    cpf: '',
+    name: 'Diego Garcia',
+    email: 'diego.ds.garcia@gmail.com',
+    birthday: '10/09/1996',
+    phone: '(11)98547-8975',
+    cpf: '111.111.111-11',
   })
 
   const [address, setAddress] = useState({
-    zipcode: '',
+    zipcode: '03370-000',
     street: '',
-    streetNumber: '',
+    streetNumber: '123',
     neighborhood: '',
     city: '',
     state: '',
   })
 
   const [cardInfo, setCardInfo] = useState({
-    name: '',
-    number: '',
-    expiry: '',
-    cvc: '',
+    name: 'User Test',
+    number: '1111 1111 1111 1111',
+    expiry: '11/11',
+    cvc: '123',
     focused: '',
   })
+
+  const [errors, setErrors] = useState({
+    cpf: true,
+    cardNumber: true,
+    cardExpiry: true,
+  })
+
+  const [showErrors, setShowErrors] = useState(false)
 
   async function onCheckAddress(event) {
     const zipcode = event.target.value
     const pattern = /[0-9]{5}-[0-9]{3}/
+
     setAddress({ ...address, zipcode })
 
     if (pattern.test(zipcode)) {
@@ -63,11 +77,17 @@ function FormCheckout({ onSubmit }) {
 
   function onFinishCheckout(event) {
     event.preventDefault()
-    onSubmit({
-      user,
-      cardInfo,
-      address,
-    })
+
+    if (Object.values(errors).includes(true)) {
+      setShowErrors(true)
+    } else {
+      setShowErrors(false)
+      onSubmit({
+        user,
+        cardInfo,
+        address,
+      })
+    }
   }
 
   return (
@@ -113,8 +133,20 @@ function FormCheckout({ onSubmit }) {
             placeholder="CPF"
             value={user.cpf}
             required
-            onChange={event => setUser({ ...user, cpf: event.target.value })}
+            onChange={event => {
+              const cpf = event.target.value
+              setUser({ ...user, cpf })
+
+              if (isValidCPF(cpf)) {
+                setErrors({ ...errors, cpf: false })
+              } else {
+                setErrors({ ...errors, cpf: true })
+              }
+            }}
           />
+          {showErrors && errors.cpf && (
+            <div className="form-error">* Digite um CPF válido</div>
+          )}
         </div>
         <div>
           <Input
@@ -198,10 +230,22 @@ function FormCheckout({ onSubmit }) {
             onFocus={event =>
               setCardInfo({ ...cardInfo, focused: event.target.name })
             }
-            onChange={event =>
-              setCardInfo({ ...cardInfo, number: event.target.value })
-            }
+            onChange={event => {
+              const number = event.target.value
+              setCardInfo({ ...cardInfo, number })
+
+              if (isValidCreditCardNumber(number)) {
+                setErrors({ ...errors, cardNumber: false })
+              } else {
+                setErrors({ ...errors, cardNumber: true })
+              }
+            }}
           />
+          {showErrors && errors.cardNumber && (
+            <div className="form-error">
+              * Digite um cartão de crédito válido
+            </div>
+          )}
           <Input
             mask="99/99"
             type="text"
@@ -212,10 +256,20 @@ function FormCheckout({ onSubmit }) {
             onFocus={event =>
               setCardInfo({ ...cardInfo, focused: event.target.name })
             }
-            onChange={event =>
-              setCardInfo({ ...cardInfo, expiry: event.target.value })
-            }
+            onChange={event => {
+              const expiry = event.target.value
+              setCardInfo({ ...cardInfo, expiry })
+
+              if (isValidDateExpiry(expiry)) {
+                setErrors({ ...errors, cardExpiry: false })
+              } else {
+                setErrors({ ...errors, cardExpiry: true })
+              }
+            }}
           />
+          {showErrors && errors.cardExpiry && (
+            <div className="form-error">* Digite uma data válida MM/AA</div>
+          )}
           <Input
             mask="999"
             type="text"

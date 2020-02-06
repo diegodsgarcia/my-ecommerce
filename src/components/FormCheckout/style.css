@@ -11,6 +11,11 @@
   flex-direction: column;
 }
 
+.form-error {
+  color: var(--warn);
+  font-size: 0.7rem;
+}
+
 @media (min-width: 1035px) {
   .form-checkout-group {
     flex-direction: row;
