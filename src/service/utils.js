@@ -24,8 +24,13 @@ function convertDecimal(value) {
   )}`
 }
 
+function isValidDateExpiry(date) {
+  return /(0[1-9]|10|11|12)\/[2-9][0-9]$/.test(date)
+}
+
 /* Função de terceiro */
-function isValidCreditCardNumber(cardNumber) {
+function isValidCreditCardNumber(number) {
+  const cardNumber = number.replace(/\s/g, '')
   let cardType = null
 
   if (VisaCardnumber(cardNumber)) {
@@ -107,10 +112,6 @@ function isValidCPF(cpf) {
   if (rev === 10 || rev === 11) rev = 0
   if (rev !== parseInt(cpf.charAt(10))) return false
   return true
-}
-
-function isValidDateExpiry(date) {
-  return /(0[1-9]|10|11|12)\/[2-9][0-9]$/.test(date)
 }
 
 export {
