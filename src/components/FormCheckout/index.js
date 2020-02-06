@@ -14,27 +14,27 @@ import './style.css'
 
 function FormCheckout({ onSubmit }) {
   const [user, setUser] = useState({
-    name: 'Diego Garcia',
-    email: 'diego.ds.garcia@gmail.com',
-    birthday: '10/09/1996',
-    phone: '(11)98547-8975',
-    cpf: '111.111.111-11',
+    name: '',
+    email: '',
+    birthday: '',
+    phone: '',
+    cpf: '',
   })
 
   const [address, setAddress] = useState({
-    zipcode: '03370-000',
+    zipcode: '',
     street: '',
-    streetNumber: '123',
+    streetNumber: '',
     neighborhood: '',
     city: '',
     state: '',
   })
 
   const [cardInfo, setCardInfo] = useState({
-    name: 'User Test',
-    number: '1111 1111 1111 1111',
-    expiry: '11/11',
-    cvc: '123',
+    name: '',
+    number: '',
+    expiry: '',
+    cvc: '',
     focused: '',
   })
 
