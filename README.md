@@ -1,6 +1,6 @@
 # My E-commerce
 
-Essa é uma aplicação desenvolvida com o intuíto de avaliação para empresa [Pagar.me](https://pagar.me/)
+:credit_card: Essa é uma aplicação desenvolvida com o intuíto de avaliação para empresa [Pagar.me](https://pagar.me/) :credit_card:
 
 ## Como utilizar
 
