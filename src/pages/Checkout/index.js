@@ -7,7 +7,7 @@ import { clearCart } from '../../store/cart/actions'
 import { createTransaction } from '../../service/api'
 import { currency } from '../../service/utils'
 
-import { Page, FormCheckout, Alert } from '../../components'
+import { Page, FormCheckout } from '../../components'
 
 import 'react-credit-cards/es/styles-compiled.css'
 import './style.css'
@@ -53,9 +53,9 @@ function Checkout() {
       <div className="checkout">
         <h1 className="checkout-title">Finalizar pedido</h1>
         {error && (
-          <Alert className="checkout-error" onClick={() => setError(false)}>
+          <div className="checkout-error" onClick={() => setError(false)}>
             Algum campo está inválido para continuar o pedido.
-          </Alert>
+          </div>
         )}
 
         <FormCheckout onSubmit={onFinishCheckout} />
